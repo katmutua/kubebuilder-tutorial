@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+// package level markers below denote that there are Kubernetes objects in this package
+// and that this package represents the group batch.tutorial.kubebuilder.io
 // Package v1 contains API Schema definitions for the batch v1 API group
 // +kubebuilder:object:generate=true
 // +groupName=batch.tutorial.kubebuilder.io
@@ -24,6 +25,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/scheme"
 )
 
+// below are commonly useful variables that help us set up our Scheme.
 var (
 	// GroupVersion is group version used to register these objects
 	GroupVersion = schema.GroupVersion{Group: "batch.tutorial.kubebuilder.io", Version: "v1"}
