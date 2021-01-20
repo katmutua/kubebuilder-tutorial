@@ -170,3 +170,15 @@ Fields may use most of the primitive types
     -Run a new job if it’s on schedule, not past the deadline, and not blocked by our concurrency policy
     -Requeue when we either see a running job (done automatically) or it’s time for the next scheduled run.
    ```
+
+   - Load the cronjob by name
+     to fetch a Cronjob we will need to use our client
+      - All client methods take a context (to allow for cancellation) as their first argument, and the object in
+      question as their last.
+   - List all active jobs and update the status
+      - to do this we need to list all child jobs in this namespace that belong to this Cronjob
+      - We can use List to get all the child objects
+
+   - clean up old jobs according to the history limit
+   - check if we are suspended
+   - get the next scheduled run
