@@ -1,5 +1,10 @@
 ### Notes following kubebuilder-book
+*tldr on reconciliation*
+It’s a controller’s job to ensure that, for any given object, the actual state of the world (both the cluster state, and potentially external state like running containers for Kubelet or loadbalancers for a cloud provider) matches the desired state in the object
 
+In controller-runtime, the logic that implements the reconciling for a specific kind is called a Reconciler.
+
+*code exercise*
 create the project
 ```
 mkdir $GOPATH/kubebuilder
@@ -155,4 +160,13 @@ Fields may use most of the primitive types
   }
   ```
   - now that we have the api we can create a controller to implement this functionality
-  
+   - envisioned logic
+   ```
+    -Load the named CronJob
+    -List all active jobs, and update the status
+    -Clean up old jobs according to the history limits
+    -Check if we’re suspended (and don’t do anything else if we are)
+    -Get the next scheduled run
+    -Run a new job if it’s on schedule, not past the deadline, and not blocked by our concurrency policy
+    -Requeue when we either see a running job (done automatically) or it’s time for the next scheduled run.
+   ```

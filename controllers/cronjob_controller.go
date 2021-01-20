@@ -29,10 +29,15 @@ import (
 
 // CronJobReconciler reconciles a CronJob object
 type CronJobReconciler struct {
+	//added by default these allow to log, and needs to be able to fetch objects,
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
 }
+
+// since controllers eventually run in a cluster they
+// need rbac permissions to run therefore
+// these bare minimum permissions are added by specifying the rbac markers below
 
 // +kubebuilder:rbac:groups=batch.tutorial.kubebuilder.io,resources=cronjobs,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=batch.tutorial.kubebuilder.io,resources=cronjobs/status,verbs=get;update;patch
@@ -43,6 +48,9 @@ func (r *CronJobReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 	// your logic here
 
+ // we return an empty result with no error to signify to the controller runtime
+ // that we've successfully reconciled this object and dont need to try again until something
+ // changes 
 	return ctrl.Result{}, nil
 }
 
