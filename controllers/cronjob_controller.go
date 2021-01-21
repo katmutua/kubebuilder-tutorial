@@ -330,9 +330,9 @@ func (r *CronJobReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		    return scheduledResult, nil
 }
 
-ar (
-    jobOwnerKey = ".metadata.controller"
-    apiGVStr    = batch.GroupVersion.String()
+var (
+	jobOwnerKey = ".metadata.controller"
+	apiGVStr    = batch.GroupVersion.String()
 )
 
 func (r *CronJobReconciler) SetupWithManager(mgr ctrl.Manager) error {
