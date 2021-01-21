@@ -211,4 +211,22 @@ Fields may use most of the primitive types
     ```
  4. Update the ValdateCreate ValidateUpdate ValidateDelete methods 
 
- 5. Validate the name and the Spec of the CronJob  
+ 5. Validate the name and the Spec of the CronJob
+
+
+ ###### deploying a cert manager 
+  - we will use cert manager to provide certificates for the webhook server 
+    - documentation to install cert manager 
+    ```
+     kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.yaml  
+    ```
+ - confirm installation 
+   ```
+   kubectl get pods --namespace cert-manager
+
+   ``` 
+
+ran into an isssue where 
+
+1. Build your image 
+2. 
