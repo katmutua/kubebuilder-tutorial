@@ -182,3 +182,33 @@ Fields may use most of the primitive types
    - clean up old jobs according to the history limit
    - check if we are suspended
    - get the next scheduled run
+ 
+- implementing the defaulting /validating webhooks 
+ - kubebuilder takes care of the following for you 
+    - creating a webhook server 
+    - ensuring the server has been added in the manager 
+    - creating handlers for your webhooks 
+    - registering each handler with a path in your server 
+ 
+ ###### setting up a webhook with kubebuilder
+
+ 1. to scaffold a webhook 
+    ```
+       kubebuilder create webhook --group batch --version v1 --kind CronJob --defaulting --programmatic-validation
+    ```
+ 2. Setting up the logger for our webhook 
+
+   ```
+   var cronjoblog = logf.Log.WithName("cronjob-resource")
+   ```
+ 3. Setting up the webhook manager 
+    ```
+    func (r *CronJob) SetupWebhookWithManager(mgr ctrl.Manager) error {
+    return ctrl.NewWebhookManagedBy(mgr).
+        For(r).
+        Complete()
+    }
+    ```
+ 4. Update the ValdateCreate ValidateUpdate ValidateDelete methods 
+
+ 5. Validate the name and the Spec of the CronJob  
